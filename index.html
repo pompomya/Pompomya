@@ -7,666 +7,663 @@
   <meta name="Generator" content="Cocoa HTML Writer">
   <meta name="CocoaVersion" content="2487.7">
   <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px 'Apple Color Emoji'; font-kerning: none}
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Mouse Trail Circles with Touch Support&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Basic reset and body styling */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Daytime Theme Variables (Default) */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-grad-start: #BFBECF;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-grad-end: #FF6A3A;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color1: #EAEE81; /* Yellow */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color1-rgba: rgba(234, 238, 129, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color2: #f0cf72; /* Mid-Yellow */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color2-rgba: rgba(240, 207, 114, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color3: #f5b666; /* Orange */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color3-rgba: rgba(245, 182, 102, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--instructions-color: rgba(0, 0, 0, 0.6); /* Adjusted for lighter background */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-border: rgba(0, 0, 0, 0.8); /* Black border */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-text: rgba(0, 0, 0, 0.8); /* Black text */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-hover-bg: rgba(0, 0, 0, 0.05); /* Subtle black bg hover */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-hover-text: black;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-hover-border: black;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-active-bg: rgba(0, 0, 0, 0.1); /* Darker black bg active */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--grain-opacity: 0.07;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body.nighttime {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Nighttime Theme Variables */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-grad-start: #120AA9;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-grad-end: #9795BC;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color1: #E3D9FF; /* Lightest Purple */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color1-rgba: rgba(227, 217, 255, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color2: #D1C1FF; /* Mid Purple */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color2-rgba: rgba(209, 193, 255, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color3: #B399FF; /* Darker Purple */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--dynamic-color3-rgba: rgba(179, 153, 255, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Stage 4 uses color 2 again */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--instructions-color: rgba(200, 200, 255, 0.7);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-border: rgba(200, 200, 255, 0.8);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-text: rgba(200, 200, 255, 0.8);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-hover-bg: rgba(200, 200, 255, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-hover-text: #e0e0ff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-hover-border: #e0e0ff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--button-active-bg: rgba(200, 200, 255, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--grain-opacity: 0.1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Use CSS variables for background */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-image: linear-gradient(to bottom, var(--bg-grad-start), var(--bg-grad-end));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-repeat: no-repeat;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-attachment: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: crosshair;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Add transition for background change */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>transition: background-image 0.5s ease-in-out;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>/* Prevent pull-to-refresh and other touch actions */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>touch-action: none;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>-webkit-user-select: none; /* Safari */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>-ms-user-select: none; /* IE 10 and IE 11 */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>user-select: none; /* Standard syntax */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Pseudo-element for grain overlay */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: -1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>filter: url(#grain-filter);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: var(--grain-opacity); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 0.5s ease-in-out; /* Transition grain opacity */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Static Center Circle (Inner) - Made invisible */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#centerCircle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 75vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 75vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: none; /* Removed background */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Static Transparent Center Circle (Outer Ring) - Made invisible */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#CenterTCircle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 75vh; /* User edited size */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 75vh; /* User edited size */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none; /* Removed border */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Keyframes for the shrinking animation */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes shrink {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>from { --shrink-scale: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>to { --shrink-scale: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Styling for the dynamic circles container */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.circle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-name: shrink;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-timing-function: linear;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-iteration-count: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-direction: normal;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-fill-mode: forwards;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-duration: var(--shrink-duration, 5s);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation-delay: 0s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform-origin: center center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--shrink-scale: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(var(--initial-scale, 1));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Transition for opacity fade-out */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 1s ease-out;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Styling for the visible part of the dynamic circle (inner element) */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.circle .core {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>/* Background set dynamically by JS using CSS variables */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">             </span>transform: scale(1);</p>
-<p class="p1"><span class="Apple-converted-space">             </span>/* Use CSS variable for transition */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>/* *** Updated transition duration *** */</p>
-<p class="p1"><span class="Apple-converted-space">             </span>transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Apply scale-up when container has .stopped-scaled class */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.circle.stopped-scaled .core {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>transform: scale(1.7);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Styling for the overlap particles */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.overlap-particle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* Background set by JS using CSS variables */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--dynamic-color1); /* Default color */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 1.5s ease-out, transform 1.5s ease-out;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.overlap-particle.fading {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(0);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* REMOVED: .fade-particle CSS rules */</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Class added to trigger fade-out for main circles */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.circle.fading-out {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0 !important;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* REMOVED: #instructions CSS rule */</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Styling for Buttons Container */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#buttonContainer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 101;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px; /* Space between buttons */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Styling for the Buttons */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.control-button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 12px; /* Adjusted padding slightly for emoji only */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid var(--button-border); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--button-text); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 9999px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px; /* Slightly larger font for emoji */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1; /* Adjust line height for emoji centering */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.control-button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--button-hover-bg); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--button-hover-text); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: var(--button-hover-border); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>.control-button:active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--button-active-bg); /* Use variable */</p>
-<p class="p1"><span class="Apple-converted-space">         </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="centerCircle"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="CenterTCircle"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="buttonContainer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="themeToggle" class="control-button"&gt;🌙&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;svg style="position:absolute; width:0; height:0; overflow:hidden;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;filter id="grain-filter"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/filter&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/svg&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Get elements</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const canvas = document.body;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const themeToggle = document.getElementById('themeToggle'); // Get theme button</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Audio Setup ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const synth = new Tone.Synth({</p>
-<p class="p1"><span class="Apple-converted-space">             </span>oscillator: { type: 'sine' },</p>
-<p class="p1"><span class="Apple-converted-space">             </span>envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.4 }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}).toDestination();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const minFrequency = 220; // A3</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const maxFrequency = 880; // A5</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const frequencyRange = maxFrequency - minFrequency;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- State variables ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let mouseX = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let mouseY = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let lastCircleTime = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const circleInterval = 10;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let mouseHistory = [];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const creationDelayMs = 10;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let firstCircleTimestamp = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const colorStageDuration = 2000; // 2 seconds per color stage</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const totalColorCycleDuration = colorStageDuration * 4; // 8 seconds total cycle</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let currentTheme = 'daytime'; // Track current theme</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let audioStarted = false; // Track if audio context is started</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Movement &amp; Collision Variables ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const circlesData = new Map();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let boundaryRadiusPx = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let canvasCenterX = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let canvasCenterY = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let lastTimestamp = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const floatSpeedFactor = 25;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const overlapThreshold = 15;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Shrink &amp; Fade Logic Variables ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const shrinkDurationSeconds = 5;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const shrinkDurationMs = shrinkDurationSeconds * 1000;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const fadeDurationSeconds = 1; // Duration of the main circle fade-out</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const fadeDurationMs = fadeDurationSeconds * 1000;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const fadeTriggerDelay = 3000;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Utility Functions ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function calculateBoundary() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>canvasCenterX = window.innerWidth / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>canvasCenterY = window.innerHeight / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const centerTCircleElement = document.getElementById('CenterTCircle');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (centerTCircleElement) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>boundaryRadiusPx = centerTCircleElement.offsetWidth / 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.error("#CenterTCircle element not found.");</p>
-<p class="p1"><span class="Apple-converted-space">                </span>boundaryRadiusPx = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Get Current Color Based on Time ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getCurrentDynamicColors(currentTime = performance.now()) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let colorHex, colorRgbaZero, particleColorHex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const styles = getComputedStyle(document.body);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>colorHex = styles.getPropertyValue('--dynamic-color1').trim();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color1-rgba').trim();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>particleColorHex = colorHex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (firstCircleTimestamp &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const elapsedTime = currentTime - firstCircleTimestamp;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const timeInCycle = elapsedTime % totalColorCycleDuration;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (timeInCycle &lt; colorStageDuration) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else if (timeInCycle &lt; 2 * colorStageDuration) {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>colorHex = styles.getPropertyValue('--dynamic-color2').trim();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color2-rgba').trim();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>particleColorHex = colorHex;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else if (timeInCycle &lt; 3 * colorStageDuration) {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>colorHex = styles.getPropertyValue('--dynamic-color3').trim();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color3-rgba').trim();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>particleColorHex = colorHex;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>colorHex = styles.getPropertyValue('--dynamic-color2').trim();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color2-rgba').trim();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>particleColorHex = colorHex;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">             </span>if (!colorHex) {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>colorHex = '#EAEE81';</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>colorRgbaZero = 'rgba(234, 238, 129, 0)';</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>particleColorHex = '#EAEE81';</p>
-<p class="p1"><span class="Apple-converted-space">             </span>}</p>
-<p class="p1"><span class="Apple-converted-space">             </span>return {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>gradient: `radial-gradient(circle, ${colorHex} 20%, ${colorRgbaZero} 100%)`,</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>particleColor: particleColorHex</p>
-<p class="p1"><span class="Apple-converted-space">             </span>};</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Overlap Particle Creation Function ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function createOverlapParticles(x, y) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentColors = getCurrentDynamicColors();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const numParticlesToCreate = Math.floor(Math.random() * 11) + 10;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; numParticlesToCreate; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const particle = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.classList.add('overlap-particle');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const particleSize = Math.random() * 3 + 1; // 1px to 4px</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const angle = Math.random() * Math.PI * 2;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const radius = Math.random() * 25 + 5;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const particleX = x + radius * Math.cos(angle);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const particleY = y + radius * Math.sin(angle);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.width = `${particleSize}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.height = `${particleSize}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.left = `${particleX - particleSize / 2}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.top = `${particleY - particleSize / 2}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.zIndex = '15';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.backgroundColor = currentColors.particleColor;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>canvas.appendChild(particle);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.offsetHeight;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.style.opacity = 0.7;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; { particle.classList.add('fading'); }, 100);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particle.addEventListener('transitionend', (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (event.propertyName === 'opacity' &amp;&amp; particle.parentNode) { particle.remove(); }</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; { if (particle.parentNode) { particle.remove(); } }, 1600);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- REMOVED: Fade Particle Creation Function ---</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Circle Creation ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function createCircle(x, y) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Start audio context (moved to touch/mouse down) ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// if (!audioStarted) { ... }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (firstCircleTimestamp === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>firstCircleTimestamp = performance.now();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const circleContainer = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.classList.add('circle');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const circleId = 'circle-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.id = circleId;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Determine Core Size - Updated random range 1px to 20px ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const mainSize = Math.random() * 19 + 1; // Size 1px to 20px</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const randomZIndex = Math.floor(Math.random() * 10) + 2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const randomInitialScale = Math.random() * 0.4 + 0.8;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const containerSizeMultiplier = 1.0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const containerSize = mainSize * containerSizeMultiplier;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.width = `${containerSize}px`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.height = `${containerSize}px`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.left = `${x - containerSize / 2}px`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.top = `${y - containerSize / 2}px`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Set random initial opacity (0.6 to 1.0) ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.opacity = Math.random() * 0.4 + 0.6; // Range 0.6 to 1.0</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.zIndex = randomZIndex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.setProperty('--initial-scale', randomInitialScale);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.setProperty('--shrink-duration', `${shrinkDurationSeconds}s`);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const core = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>core.classList.add('core');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentColors = getCurrentDynamicColors();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>core.style.background = currentColors.gradient;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>core.style.width = `100%`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>core.style.height = `100%`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.appendChild(core);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>canvas.appendChild(circleContainer);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Store Circle Data</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const circleData = {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>x: x,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>y: y,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>stopped: false,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>moveOutward: (Math.sqrt((x - canvasCenterX)**2 + (y - canvasCenterY)**2) &lt;= boundaryRadiusPx),</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particlesGenerated: false,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>element: circleContainer,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>initialSize: mainSize * randomInitialScale</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circlesData.set(circleId, circleData);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Fading and Removal Logic</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Use fixed delay instead of calculating timeToReach1px ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const fadeTimeoutId = setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const currentElement = document.getElementById(circleId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// *** Check if element still exists before adding class ***</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (currentElement &amp;&amp; currentElement.parentNode) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>currentElement.classList.add('fading-out');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>// *** REMOVED call to createFadeParticles ***</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, fadeTriggerDelay); // Use fixed delay (e.g., 3000ms)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.dataset.fadeTimeoutId = fadeTimeoutId;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Fallback removal timer remains based on shrink + fade durations</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const fallbackRemovalTimeoutId = setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>circlesData.delete(circleId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (circleContainer.parentNode) { circleContainer.remove(); }</p>
-<p class="p1"><span class="Apple-converted-space">                </span>clearTimeout(fadeTimeoutId);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, shrinkDurationMs + fadeDurationMs);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.dataset.fallbackRemovalTimeoutId = fallbackRemovalTimeoutId;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// transitionend listener still removes the main circle after its opacity fade</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circleContainer.addEventListener('transitionend', (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (event.target === circleContainer &amp;&amp; event.propertyName === 'opacity') {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>circlesData.delete(circleId);</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>if (circleContainer.parentNode) { circleContainer.remove(); }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>clearTimeout(fadeTimeoutId);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>clearTimeout(fallbackRemovalTimeoutId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Clear All Circles Function ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function clearAllCircles() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Updated selector to only clear overlap particles ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const allParticles = document.querySelectorAll('.overlap-particle');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>allParticles.forEach(p =&gt; p.remove());</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let [id, data] of circlesData) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const circleElement = data.element;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>if (circleElement) {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>const fadeId = circleElement.dataset.fadeTimeoutId;</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>const fallbackId = circleElement.dataset.fallbackRemovalTimeoutId;</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>if (fadeId) clearTimeout(parseInt(fadeId));</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>if (fallbackId) clearTimeout(parseInt(fallbackId));</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>if (circleElement.parentNode) {</p>
-<p class="p1"><span class="Apple-converted-space">                         </span>circleElement.remove();</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>circlesData.clear();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>mouseHistory = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>firstCircleTimestamp = 0; // Reset timestamp to restart color cycle</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Main Animation Loop ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function gameLoop(timestamp) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const now = performance.now();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (lastTimestamp === 0) { lastTimestamp = now; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const deltaTime = Math.max(0, (now - lastTimestamp) / 1000);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>lastTimestamp = now;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Delayed Circle Creation</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (now - lastCircleTime &gt; circleInterval) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>for (let i = 0; i &lt; mouseHistory.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const entry = mouseHistory[i];</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (now - entry.time &gt;= creationDelayMs) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>createCircle(entry.x, entry.y);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>lastCircleTime = now;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>mouseHistory.splice(0, i + 1);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>break;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>break;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// History Cleanup</p>
-<p class="p1"><span class="Apple-converted-space">             </span>if (mouseHistory.length &gt; 0 &amp;&amp; now - mouseHistory[0].time &gt; creationDelayMs + 150) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>mouseHistory = mouseHistory.filter(entry =&gt; now - entry.time &lt; creationDelayMs + 150);</p>
-<p class="p1"><span class="Apple-converted-space">             </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Circle Movement &amp; Collision</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (boundaryRadiusPx &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>for (let [id, data] of circlesData) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const circleElement = data.element;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (!circleElement || !circleElement.parentNode) { circlesData.delete(id); continue; }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (data.stopped) { continue; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>let directionX, directionY;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (data.moveOutward) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>directionX = data.x - canvasCenterX;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>directionY = data.y - canvasCenterY;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>directionX = canvasCenterX - data.x;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>directionY = canvasCenterY - data.y;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const distanceToCenter = Math.sqrt(directionX * directionX + directionY * directionY);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>let normalizedVx = 0, normalizedVy = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (distanceToCenter &gt; 1) {</p>
-<p class="p1"><span class="Apple-converted-space">                       </span>normalizedVx = directionX / distanceToCenter;</p>
-<p class="p1"><span class="Apple-converted-space">                       </span>normalizedVy = directionY / distanceToCenter;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else if (!data.moveOutward) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.stopped = true; continue;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>let nextX = data.x + normalizedVx * deltaTime * floatSpeedFactor;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>let nextY = data.y + normalizedVy * deltaTime * floatSpeedFactor;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const nextDx = nextX - canvasCenterX, nextDy = nextY - canvasCenterY;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const nextDist = Math.sqrt(nextDx * nextDx + nextDy * nextDy);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if ((!data.moveOutward &amp;&amp; nextDist &lt;= boundaryRadiusPx) || (data.moveOutward &amp;&amp; nextDist &gt;= boundaryRadiusPx)) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const angle = Math.atan2(nextDy, nextDx);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.x = canvasCenterX + boundaryRadiusPx * Math.cos(angle);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.y = canvasCenterY + boundaryRadiusPx * Math.sin(angle);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.stopped = true;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (circleElement) { circleElement.classList.add('stopped-scaled'); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// *** Trigger Sound on Collision ***</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (audioStarted) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const normalizedAngle = (angle + Math.PI) / (2 * Math.PI);</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const frequency = minFrequency + normalizedAngle * frequencyRange;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>try { synth.triggerAttackRelease(frequency, "16n"); }</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>catch (e) { console.error("Tone.js error:", e); }</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (!data.particlesGenerated) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>let overlapCount = 0;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>for (let [otherId, otherData] of circlesData) {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>if (id !== otherId &amp;&amp; otherData.stopped) {</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>const dxOther = data.x - otherData.x;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>const dyOther = data.y - otherData.y;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>if (Math.sqrt(dxOther*dxOther + dyOther*dyOther) &lt;= overlapThreshold) {</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>overlapCount++;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>if (overlapCount &gt;= 3) {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>createOverlapParticles(data.x, data.y);</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>data.particlesGenerated = true;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.x = nextX;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.y = nextY;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const elementWidth = circleElement.offsetWidth;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const elementHeight = circleElement.offsetHeight;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (elementWidth &gt; 0 &amp;&amp; elementHeight &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                       </span>circleElement.style.left = `${data.x - elementWidth / 2}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                       </span>circleElement.style.top = `${data.y - elementHeight / 2}px`;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>requestAnimationFrame(gameLoop);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Event Listeners ---</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// *** Function to handle adding position to history ***</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function recordPointerPosition(clientX, clientY) {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>// Clamp recorded coordinates to viewport</p>
-<p class="p1"><span class="Apple-converted-space">             </span>mouseX = Math.max(0, Math.min(clientX, window.innerWidth));</p>
-<p class="p1"><span class="Apple-converted-space">             </span>mouseY = Math.max(0, Math.min(clientY, window.innerHeight));</p>
-<p class="p1"><span class="Apple-converted-space">             </span>mouseHistory.push({ x: mouseX, y: mouseY, time: performance.now() });</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// *** Function to ensure audio context is started ***</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function startAudio() {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>if (!audioStarted) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Tone.start().then(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>audioStarted = true;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.log('Audio context started by user interaction.');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}).catch(e =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>console.error("Failed to start audio context:", e);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Mouse Move on Canvas</p>
-<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('mousemove', (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>recordPointerPosition(event.clientX, event.clientY);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Touch Move on Canvas</p>
-<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('touchmove', (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Prevent default scroll/zoom behavior</p>
-<p class="p1"><span class="Apple-converted-space">            </span>event.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (event.touches.length &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recordPointerPosition(event.touches[0].clientX, event.touches[0].clientY);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}, { passive: false }); // Need passive: false to allow preventDefault</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Touch Start on Canvas (primarily to start audio)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('touchstart', (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>// Prevent default only if not interacting with button</p>
-<p class="p1"><span class="Apple-converted-space">             </span>if (event.target !== themeToggle) {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>event.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">             </span>}</p>
-<p class="p1"><span class="Apple-converted-space">             </span>startAudio(); // Ensure audio starts on first touch</p>
-<p class="p1"><span class="Apple-converted-space">             </span>// Optionally record initial touch point</p>
-<p class="p1"><span class="Apple-converted-space">             </span>if (event.touches.length &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// recordPointerPosition(event.touches[0].clientX, event.touches[0].clientY);</p>
-<p class="p1"><span class="Apple-converted-space">             </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}, { passive: false });</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>// Theme Toggle Listener - Updated to clear circles AND start audio</p>
-<p class="p1"><span class="Apple-converted-space">         </span>themeToggle.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>startAudio(); // Ensure audio starts if button is first interaction</p>
-<p class="p1"><span class="Apple-converted-space">             </span>clearAllCircles(); // Clear existing circles first</p>
-<p class="p1"><span class="Apple-converted-space">             </span>document.body.classList.toggle('nighttime');</p>
-<p class="p1"><span class="Apple-converted-space">             </span>if (document.body.classList.contains('nighttime')) {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>themeToggle.textContent = '☀️';</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>currentTheme = 'nighttime';</p>
-<p class="p1"><span class="Apple-converted-space">             </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>themeToggle.textContent = '🌙';</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>currentTheme = 'daytime';</p>
-<p class="p1"><span class="Apple-converted-space">             </span>}</p>
-<p class="p1"><span class="Apple-converted-space">             </span>calculateBoundary(); // Recalculate boundary just in case</p>
-<p class="p1"><span class="Apple-converted-space">         </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>window.addEventListener('resize', calculateBoundary);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>window.addEventListener('load', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>calculateBoundary();</p>
-<p class="p1"><span class="Apple-converted-space">             </span>lastTimestamp = performance.now();</p>
-<p class="p1"><span class="Apple-converted-space">             </span>requestAnimationFrame(gameLoop);</p>
-<p class="p1"><span class="Apple-converted-space">         </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Mouse Trail Circles (Responsive Center Boundary)&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Basic reset and body styling */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>:root {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Daytime Theme Variables (Default) */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--bg-grad-start: #BFBECF;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--bg-grad-end: #FF6A3A;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color1: #EAEE81; /* Yellow */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color1-rgba: rgba(234, 238, 129, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color2: #f0cf72; /* Mid-Yellow */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color2-rgba: rgba(240, 207, 114, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color3: #f5b666; /* Orange */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color3-rgba: rgba(245, 182, 102, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--instructions-color: rgba(0, 0, 0, 0.6); /* Adjusted for lighter background */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-border: rgba(0, 0, 0, 0.8); /* Black border */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-text: rgba(0, 0, 0, 0.8); /* Black text */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-hover-bg: rgba(0, 0, 0, 0.05); /* Subtle black bg hover */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-hover-text: black;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-hover-border: black;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-active-bg: rgba(0, 0, 0, 0.1); /* Darker black bg active */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--grain-opacity: 0.07;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body.nighttime {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Nighttime Theme Variables */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--bg-grad-start: #120AA9;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--bg-grad-end: #9795BC;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color1: #E3D9FF; /* Lightest Purple */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color1-rgba: rgba(227, 217, 255, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color2: #D1C1FF; /* Mid Purple */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color2-rgba: rgba(209, 193, 255, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color3: #B399FF; /* Darker Purple */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--dynamic-color3-rgba: rgba(179, 153, 255, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Stage 4 uses color 2 again */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--instructions-color: rgba(200, 200, 255, 0.7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-border: rgba(200, 200, 255, 0.8);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-text: rgba(200, 200, 255, 0.8);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-hover-bg: rgba(200, 200, 255, 0.15);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-hover-text: #e0e0ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-hover-border: #e0e0ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--button-active-bg: rgba(200, 200, 255, 0.25);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--grain-opacity: 0.1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 100vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Use CSS variables for background */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-image: linear-gradient(to bottom, var(--bg-grad-start), var(--bg-grad-end));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-repeat: no-repeat;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-attachment: fixed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>overflow: hidden;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: relative;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: crosshair;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Add transition for background change */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>transition: background-image 0.5s ease-in-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>/* Prevent pull-to-refresh and other touch actions */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>touch-action: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>-webkit-user-select: none; /* Safari */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>-ms-user-select: none; /* IE 10 and IE 11 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>user-select: none; /* Standard syntax */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Pseudo-element for grain overlay */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body::before {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>content: '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: fixed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: -1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>filter: url(#grain-filter);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>opacity: var(--grain-opacity); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: opacity 0.5s ease-in-out; /* Transition grain opacity */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Static Center Circle (Inner) - Made invisible */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#centerCircle {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 75vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 75vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: none; /* Removed background */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Static Transparent Center Circle (Outer Ring) - Made invisible */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#CenterTCircle {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* *** Updated size to use vmin for responsiveness *** */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 75vmin; /* 75% of the smaller viewport dimension */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 75vmin;/* 75% of the smaller viewport dimension */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: transparent;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none; /* Removed border */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Keyframes for the shrinking animation */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes shrink {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>from { --shrink-scale: 1; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>to { --shrink-scale: 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Styling for the dynamic circles container */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.circle {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-name: shrink;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-timing-function: linear;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-iteration-count: 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-direction: normal;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-fill-mode: forwards;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-duration: var(--shrink-duration, 5s);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation-delay: 0s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform-origin: center center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--shrink-scale: 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: scale(var(--initial-scale, 1));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Transition for opacity fade-out */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: opacity 1s ease-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Styling for the visible part of the dynamic circle (inner element) */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.circle .core {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>height: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>/* Background set dynamically by JS using CSS variables */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>border-radius: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>left: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>top: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>transform: scale(1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>/* Use CSS variable for transition */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>/* *** Updated transition duration *** */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Apply scale-up when container has .stopped-scaled class */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.circle.stopped-scaled .core {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>transform: scale(1.7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Styling for the overlap particles */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.overlap-particle {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>/* Background set by JS using CSS variables */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: var(--dynamic-color1); /* Default color */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>opacity: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: opacity 1.5s ease-out, transform 1.5s ease-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: scale(1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.overlap-particle.fading {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>opacity: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: scale(0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* REMOVED: .fade-particle CSS rules */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Class added to trigger fade-out for main circles */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.circle.fading-out {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>opacity: 0 !important;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* REMOVED: #instructions CSS rule */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Styling for Buttons Container */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#buttonContainer {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 101;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gap: 10px; /* Space between buttons */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Styling for the Buttons */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.control-button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 8px 12px; /* Adjusted padding slightly for emoji only */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: transparent;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 1px solid var(--button-border); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: var(--button-text); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 9999px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 16px; /* Slightly larger font for emoji */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>line-height: 1; /* Adjust line height for emoji centering */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.control-button:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: var(--button-hover-bg); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: var(--button-hover-text); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-color: var(--button-hover-border); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>.control-button:active {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: var(--button-active-bg); /* Use variable */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="centerCircle"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="CenterTCircle"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="buttonContainer"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="themeToggle" class="control-button"&gt;</span><span class="s2">🌙</span><span class="s1">&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;svg style="position:absolute; width:0; height:0; overflow:hidden;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;filter id="grain-filter"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/filter&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/svg&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Get elements</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const canvas = document.body;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const themeToggle = document.getElementById('themeToggle'); // Get theme button</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Audio Setup ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const synth = new Tone.Synth({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>oscillator: { type: 'sine' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.4 }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}).toDestination();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const minFrequency = 220; // A3</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const maxFrequency = 880; // A5</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const frequencyRange = maxFrequency - minFrequency;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- State variables ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let mouseX = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let mouseY = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let lastCircleTime = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const circleInterval = 10;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let mouseHistory = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const creationDelayMs = 10;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let firstCircleTimestamp = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const colorStageDuration = 2000; // 2 seconds per color stage</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const totalColorCycleDuration = colorStageDuration * 4; // 8 seconds total cycle</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let currentTheme = 'daytime'; // Track current theme</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let audioStarted = false; // Track if audio context is started</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Movement &amp; Collision Variables ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const circlesData = new Map();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let boundaryRadiusPx = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let canvasCenterX = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let canvasCenterY = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let lastTimestamp = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const floatSpeedFactor = 25;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const overlapThreshold = 15;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Shrink &amp; Fade Logic Variables ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const shrinkDurationSeconds = 5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const shrinkDurationMs = shrinkDurationSeconds * 1000;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const fadeDurationSeconds = 1; // Duration of the main circle fade-out</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const fadeDurationMs = fadeDurationSeconds * 1000;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const fadeTriggerDelay = 3000;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Utility Functions ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function calculateBoundary() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>canvasCenterX = window.innerWidth / 2;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>canvasCenterY = window.innerHeight / 2;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const centerTCircleElement = document.getElementById('CenterTCircle');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (centerTCircleElement) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Use the actual rendered width which is now based on vmin</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>boundaryRadiusPx = centerTCircleElement.offsetWidth / 2;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>console.error("#CenterTCircle element not found.");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>boundaryRadiusPx = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Get Current Color Based on Time ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function getCurrentDynamicColors(currentTime = performance.now()) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let colorHex, colorRgbaZero, particleColorHex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const styles = getComputedStyle(document.body);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>colorHex = styles.getPropertyValue('--dynamic-color1').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color1-rgba').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>particleColorHex = colorHex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (firstCircleTimestamp &gt; 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const elapsedTime = currentTime - firstCircleTimestamp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const timeInCycle = elapsedTime % totalColorCycleDuration;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (timeInCycle &lt; colorStageDuration) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else if (timeInCycle &lt; 2 * colorStageDuration) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>colorHex = styles.getPropertyValue('--dynamic-color2').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color2-rgba').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>particleColorHex = colorHex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else if (timeInCycle &lt; 3 * colorStageDuration) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>colorHex = styles.getPropertyValue('--dynamic-color3').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color3-rgba').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>particleColorHex = colorHex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>colorHex = styles.getPropertyValue('--dynamic-color2').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>colorRgbaZero = styles.getPropertyValue('--dynamic-color2-rgba').trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>particleColorHex = colorHex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>if (!colorHex) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>colorHex = '#EAEE81';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>colorRgbaZero = 'rgba(234, 238, 129, 0)';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>particleColorHex = '#EAEE81';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>return {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>gradient: `radial-gradient(circle, ${colorHex} 20%, ${colorRgbaZero} 100%)`,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>particleColor: particleColorHex</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Overlap Particle Creation Function ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function createOverlapParticles(x, y) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const currentColors = getCurrentDynamicColors();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const numParticlesToCreate = Math.floor(Math.random() * 11) + 10;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; numParticlesToCreate; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const particle = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.classList.add('overlap-particle');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const particleSize = Math.random() * 3 + 1; // 1px to 4px</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const angle = Math.random() * Math.PI * 2;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const radius = Math.random() * 25 + 5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const particleX = x + radius * Math.cos(angle);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const particleY = y + radius * Math.sin(angle);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.width = `${particleSize}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.height = `${particleSize}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.left = `${particleX - particleSize / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.top = `${particleY - particleSize / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.zIndex = '15';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.backgroundColor = currentColors.particleColor;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>canvas.appendChild(particle);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.offsetHeight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.style.opacity = 0.7;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; { particle.classList.add('fading'); }, 100);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particle.addEventListener('transitionend', (event) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (event.propertyName === 'opacity' &amp;&amp; particle.parentNode) { particle.remove(); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; { if (particle.parentNode) { particle.remove(); } }, 1600);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- REMOVED: Fade Particle Creation Function ---</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Circle Creation ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function createCircle(x, y) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// *** Start audio context (moved to touch/mouse down) ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// if (!audioStarted) { ... }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (firstCircleTimestamp === 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>firstCircleTimestamp = performance.now();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const circleContainer = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.classList.add('circle');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const circleId = 'circle-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.id = circleId;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// *** Determine Core Size - Updated random range 1px to 20px ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const mainSize = Math.random() * 19 + 1; // Size 1px to 20px</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const randomZIndex = Math.floor(Math.random() * 10) + 2;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const randomInitialScale = Math.random() * 0.4 + 0.8;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const containerSizeMultiplier = 1.0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const containerSize = mainSize * containerSizeMultiplier;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.width = `${containerSize}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.height = `${containerSize}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.left = `${x - containerSize / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.top = `${y - containerSize / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// *** Set random initial opacity (0.6 to 1.0) ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.opacity = Math.random() * 0.4 + 0.6; // Range 0.6 to 1.0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.zIndex = randomZIndex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.setProperty('--initial-scale', randomInitialScale);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.style.setProperty('--shrink-duration', `${shrinkDurationSeconds}s`);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const core = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>core.classList.add('core');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const currentColors = getCurrentDynamicColors();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>core.style.background = currentColors.gradient;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>core.style.width = `100%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>core.style.height = `100%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.appendChild(core);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>canvas.appendChild(circleContainer);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Store Circle Data</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const circleData = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>x: x,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>y: y,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>stopped: false,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>moveOutward: (Math.sqrt((x - canvasCenterX)**2 + (y - canvasCenterY)**2) &lt;= boundaryRadiusPx),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>particlesGenerated: false,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>element: circleContainer,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>initialSize: mainSize * randomInitialScale</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circlesData.set(circleId, circleData);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Fading and Removal Logic</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// *** Use fixed delay instead of calculating timeToReach1px ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const fadeTimeoutId = setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const currentElement = document.getElementById(circleId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// *** Check if element still exists before adding class ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (currentElement &amp;&amp; currentElement.parentNode) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>currentElement.classList.add('fading-out');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>// *** REMOVED call to createFadeParticles ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}, fadeTriggerDelay); // Use fixed delay (e.g., 3000ms)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.dataset.fadeTimeoutId = fadeTimeoutId;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Fallback removal timer remains based on shrink + fade durations</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const fallbackRemovalTimeoutId = setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>circlesData.delete(circleId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (circleContainer.parentNode) { circleContainer.remove(); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>clearTimeout(fadeTimeoutId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}, shrinkDurationMs + fadeDurationMs);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.dataset.fallbackRemovalTimeoutId = fallbackRemovalTimeoutId;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// transitionend listener still removes the main circle after its opacity fade</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circleContainer.addEventListener('transitionend', (event) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (event.target === circleContainer &amp;&amp; event.propertyName === 'opacity') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>circlesData.delete(circleId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>if (circleContainer.parentNode) { circleContainer.remove(); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>clearTimeout(fadeTimeoutId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>clearTimeout(fallbackRemovalTimeoutId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Clear All Circles Function ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function clearAllCircles() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// *** Updated selector to only clear overlap particles ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const allParticles = document.querySelectorAll('.overlap-particle');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>allParticles.forEach(p =&gt; p.remove());</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let [id, data] of circlesData) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const circleElement = data.element;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>if (circleElement) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>const fadeId = circleElement.dataset.fadeTimeoutId;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>const fallbackId = circleElement.dataset.fallbackRemovalTimeoutId;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>if (fadeId) clearTimeout(parseInt(fadeId));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>if (fallbackId) clearTimeout(parseInt(fallbackId));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>if (circleElement.parentNode) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>circleElement.remove();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>circlesData.clear();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>mouseHistory = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>firstCircleTimestamp = 0; // Reset timestamp to restart color cycle</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Main Animation Loop ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function gameLoop(timestamp) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const now = performance.now();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (lastTimestamp === 0) { lastTimestamp = now; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const deltaTime = Math.max(0, (now - lastTimestamp) / 1000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>lastTimestamp = now;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Delayed Circle Creation</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (now - lastCircleTime &gt; circleInterval) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>for (let i = 0; i &lt; mouseHistory.length; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const entry = mouseHistory[i];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (now - entry.time &gt;= creationDelayMs) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>createCircle(entry.x, entry.y);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>lastCircleTime = now;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>mouseHistory.splice(0, i + 1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// History Cleanup</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>if (mouseHistory.length &gt; 0 &amp;&amp; now - mouseHistory[0].time &gt; creationDelayMs + 150) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>mouseHistory = mouseHistory.filter(entry =&gt; now - entry.time &lt; creationDelayMs + 150);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Circle Movement &amp; Collision</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (boundaryRadiusPx &gt; 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>for (let [id, data] of circlesData) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const circleElement = data.element;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (!circleElement || !circleElement.parentNode) { circlesData.delete(id); continue; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (data.stopped) { continue; }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>let directionX, directionY;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (data.moveOutward) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>directionX = data.x - canvasCenterX;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>directionY = data.y - canvasCenterY;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>directionX = canvasCenterX - data.x;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>directionY = canvasCenterY - data.y;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const distanceToCenter = Math.sqrt(directionX * directionX + directionY * directionY);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>let normalizedVx = 0, normalizedVy = 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (distanceToCenter &gt; 1) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                       </span>normalizedVx = directionX / distanceToCenter;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                       </span>normalizedVy = directionY / distanceToCenter;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>} else if (!data.moveOutward) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data.stopped = true; continue;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>let nextX = data.x + normalizedVx * deltaTime * floatSpeedFactor;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>let nextY = data.y + normalizedVy * deltaTime * floatSpeedFactor;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const nextDx = nextX - canvasCenterX, nextDy = nextY - canvasCenterY;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const nextDist = Math.sqrt(nextDx * nextDx + nextDy * nextDy);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if ((!data.moveOutward &amp;&amp; nextDist &lt;= boundaryRadiusPx) || (data.moveOutward &amp;&amp; nextDist &gt;= boundaryRadiusPx)) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const angle = Math.atan2(nextDy, nextDx);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data.x = canvasCenterX + boundaryRadiusPx * Math.cos(angle);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data.y = canvasCenterY + boundaryRadiusPx * Math.sin(angle);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data.stopped = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>if (circleElement) { circleElement.classList.add('stopped-scaled'); }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>// *** Trigger Sound on Collision ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>if (audioStarted) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>const normalizedAngle = (angle + Math.PI) / (2 * Math.PI);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>const frequency = minFrequency + normalizedAngle * frequencyRange;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>try { synth.triggerAttackRelease(frequency, "16n"); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>catch (e) { console.error("Tone.js error:", e); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>if (!data.particlesGenerated) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>let overlapCount = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>for (let [otherId, otherData] of circlesData) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>if (id !== otherId &amp;&amp; otherData.stopped) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                    </span>const dxOther = data.x - otherData.x;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                    </span>const dyOther = data.y - otherData.y;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                    </span>if (Math.sqrt(dxOther*dxOther + dyOther*dyOther) &lt;= overlapThreshold) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                        </span>overlapCount++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>if (overlapCount &gt;= 3) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>createOverlapParticles(data.x, data.y);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>data.particlesGenerated = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data.x = nextX;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data.y = nextY;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const elementWidth = circleElement.offsetWidth;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const elementHeight = circleElement.offsetHeight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (elementWidth &gt; 0 &amp;&amp; elementHeight &gt; 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                       </span>circleElement.style.left = `${data.x - elementWidth / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                       </span>circleElement.style.top = `${data.y - elementHeight / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>requestAnimationFrame(gameLoop);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// --- Event Listeners ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// *** Function to handle adding position to history ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function recordPointerPosition(clientX, clientY) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>// Clamp recorded coordinates to viewport</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>mouseX = Math.max(0, Math.min(clientX, window.innerWidth));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>mouseY = Math.max(0, Math.min(clientY, window.innerHeight));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>mouseHistory.push({ x: mouseX, y: mouseY, time: performance.now() });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// *** Function to ensure audio context is started ***</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function startAudio() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>if (!audioStarted) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>Tone.start().then(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>audioStarted = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>console.log('Audio context started by user interaction.');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}).catch(e =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>console.error("Failed to start audio context:", e);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Mouse Move on Canvas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>canvas.addEventListener('mousemove', (event) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>recordPointerPosition(event.clientX, event.clientY);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Touch Move on Canvas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>canvas.addEventListener('touchmove', (event) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>event.preventDefault();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (event.touches.length &gt; 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>recordPointerPosition(event.touches[0].clientX, event.touches[0].clientY);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}, { passive: false });</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Touch Start on Canvas (primarily to start audio)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>canvas.addEventListener('touchstart', (event) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>if (event.target !== themeToggle) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>event.preventDefault();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>startAudio();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}, { passive: false });</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>// Theme Toggle Listener - Updated to clear circles AND start audio</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>themeToggle.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>startAudio(); // Ensure audio starts if button is first interaction</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>clearAllCircles(); // Clear existing circles first</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>document.body.classList.toggle('nighttime');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>if (document.body.classList.contains('nighttime')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>themeToggle.textContent = '</span><span class="s2">☀️</span><span class="s1">';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>currentTheme = 'nighttime';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>themeToggle.textContent = '</span><span class="s2">🌙</span><span class="s1">';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>currentTheme = 'daytime';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>calculateBoundary(); // Recalculate boundary just in case</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>window.addEventListener('resize', calculateBoundary);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>window.addEventListener('load', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>calculateBoundary();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>lastTimestamp = performance.now();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>requestAnimationFrame(gameLoop);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
 </body>
 </html>
