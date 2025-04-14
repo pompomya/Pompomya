@@ -17,7 +17,7 @@
 <p class="p1">&lt;head&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Mouse Trail Circles with Collision Sounds&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Mouse Trail Circles with Touch Support&lt;/title&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"&gt;&lt;/script&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
 <p class="p1"><span class="Apple-converted-space">        </span>/* Basic reset and body styling */</p>
@@ -77,6 +77,11 @@
 <p class="p1"><span class="Apple-converted-space">            </span>font-family: sans-serif;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>/* Add transition for background change */</p>
 <p class="p1"><span class="Apple-converted-space">             </span>transition: background-image 0.5s ease-in-out;</p>
+<p class="p1"><span class="Apple-converted-space">             </span>/* Prevent pull-to-refresh and other touch actions */</p>
+<p class="p1"><span class="Apple-converted-space">             </span>touch-action: none;</p>
+<p class="p1"><span class="Apple-converted-space">             </span>-webkit-user-select: none; /* Safari */</p>
+<p class="p1"><span class="Apple-converted-space">             </span>-ms-user-select: none; /* IE 10 and IE 11 */</p>
+<p class="p1"><span class="Apple-converted-space">             </span>user-select: none; /* Standard syntax */</p>
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>/* Pseudo-element for grain overlay */</p>
@@ -253,12 +258,10 @@
 <p class="p1"><span class="Apple-converted-space">        </span>const themeToggle = document.getElementById('themeToggle'); // Get theme button</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>// --- Audio Setup ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Create a synth and connect it to the main output (speakers)</p>
 <p class="p1"><span class="Apple-converted-space">        </span>const synth = new Tone.Synth({</p>
-<p class="p1"><span class="Apple-converted-space">             </span>oscillator: { type: 'sine' }, // Simple sine wave</p>
-<p class="p1"><span class="Apple-converted-space">             </span>envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.4 } // Short envelope</p>
+<p class="p1"><span class="Apple-converted-space">             </span>oscillator: { type: 'sine' },</p>
+<p class="p1"><span class="Apple-converted-space">             </span>envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.4 }</p>
 <p class="p1"><span class="Apple-converted-space">        </span>}).toDestination();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Define frequency range for mapping</p>
 <p class="p1"><span class="Apple-converted-space">        </span>const minFrequency = 220; // A3</p>
 <p class="p1"><span class="Apple-converted-space">        </span>const maxFrequency = 880; // A5</p>
 <p class="p1"><span class="Apple-converted-space">        </span>const frequencyRange = maxFrequency - minFrequency;</p>
@@ -377,12 +380,8 @@
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>// --- Circle Creation ---</p>
 <p class="p1"><span class="Apple-converted-space">        </span>function createCircle(x, y) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Start audio context on first circle creation ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!audioStarted) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Tone.start();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>audioStarted = true;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.log('Audio context started');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// *** Start audio context (moved to touch/mouse down) ***</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// if (!audioStarted) { ... }</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">            </span>if (firstCircleTimestamp === 0) {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>firstCircleTimestamp = performance.now();</p>
@@ -393,7 +392,9 @@
 <p class="p1"><span class="Apple-converted-space">            </span>const circleId = 'circle-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7);</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.id = circleId;</p>
 <p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// *** Determine Core Size - Updated random range 1px to 20px ***</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const mainSize = Math.random() * 19 + 1; // Size 1px to 20px</p>
+<p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">            </span>const randomZIndex = Math.floor(Math.random() * 10) + 2;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const randomInitialScale = Math.random() * 0.4 + 0.8;</p>
 <p class="p2"><br></p>
@@ -403,6 +404,7 @@
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.height = `${containerSize}px`;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.left = `${x - containerSize / 2}px`;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.top = `${y - containerSize / 2}px`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// *** Set random initial opacity (0.6 to 1.0) ***</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.opacity = Math.random() * 0.4 + 0.6; // Range 0.6 to 1.0</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.zIndex = randomZIndex;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.style.setProperty('--initial-scale', randomInitialScale);</p>
@@ -431,15 +433,18 @@
 <p class="p1"><span class="Apple-converted-space">            </span>circlesData.set(circleId, circleData);</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">            </span>// Fading and Removal Logic</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// *** Use fixed delay instead of calculating timeToReach1px ***</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const fadeTimeoutId = setTimeout(() =&gt; {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>const currentElement = document.getElementById(circleId);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// *** Check if element still exists before adding class ***</p>
 <p class="p1"><span class="Apple-converted-space">                </span>if (currentElement &amp;&amp; currentElement.parentNode) {</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>currentElement.classList.add('fading-out');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>// REMOVED: createFadeParticles call</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// *** REMOVED call to createFadeParticles ***</p>
 <p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, fadeTriggerDelay);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, fadeTriggerDelay); // Use fixed delay (e.g., 3000ms)</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.dataset.fadeTimeoutId = fadeTimeoutId;</p>
 <p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Fallback removal timer remains based on shrink + fade durations</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const fallbackRemovalTimeoutId = setTimeout(() =&gt; {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>circlesData.delete(circleId);</p>
 <p class="p1"><span class="Apple-converted-space">                </span>if (circleContainer.parentNode) { circleContainer.remove(); }</p>
@@ -447,6 +452,7 @@
 <p class="p1"><span class="Apple-converted-space">            </span>}, shrinkDurationMs + fadeDurationMs);</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.dataset.fallbackRemovalTimeoutId = fallbackRemovalTimeoutId;</p>
 <p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// transitionend listener still removes the main circle after its opacity fade</p>
 <p class="p1"><span class="Apple-converted-space">            </span>circleContainer.addEventListener('transitionend', (event) =&gt; {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>if (event.target === circleContainer &amp;&amp; event.propertyName === 'opacity') {</p>
 <p class="p1"><span class="Apple-converted-space">                     </span>circlesData.delete(circleId);</p>
@@ -540,24 +546,18 @@
 <p class="p1"><span class="Apple-converted-space">                    </span>const nextDist = Math.sqrt(nextDx * nextDx + nextDy * nextDy);</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">                    </span>if ((!data.moveOutward &amp;&amp; nextDist &lt;= boundaryRadiusPx) || (data.moveOutward &amp;&amp; nextDist &gt;= boundaryRadiusPx)) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const angle = Math.atan2(nextDy, nextDx); // Angle to collision point</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data.x = canvasCenterX + boundaryRadiusPx * Math.cos(angle); // Clamp to edge</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const angle = Math.atan2(nextDy, nextDx);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>data.x = canvasCenterX + boundaryRadiusPx * Math.cos(angle);</p>
 <p class="p1"><span class="Apple-converted-space">                        </span>data.y = canvasCenterY + boundaryRadiusPx * Math.sin(angle);</p>
 <p class="p1"><span class="Apple-converted-space">                        </span>data.stopped = true;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (circleElement) { circleElement.classList.add('stopped-scaled'); } // Trigger scale up</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (circleElement) { circleElement.classList.add('stopped-scaled'); }</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">                        </span>// *** Trigger Sound on Collision ***</p>
 <p class="p1"><span class="Apple-converted-space">                        </span>if (audioStarted) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>// Map angle (-PI to PI) to frequency (minFrequency to maxFrequency)</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>// Normalize angle to 0-1 range first: (angle + Math.PI) / (2 * Math.PI)</p>
 <p class="p1"><span class="Apple-converted-space">                            </span>const normalizedAngle = (angle + Math.PI) / (2 * Math.PI);</p>
 <p class="p1"><span class="Apple-converted-space">                            </span>const frequency = minFrequency + normalizedAngle * frequencyRange;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>synth.triggerAttackRelease(frequency, "16n"); // Play a short note (16th note)</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>} catch (e) {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>console.error("Tone.js error:", e);</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>// Potentially stop trying to play if context is lost</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>try { synth.triggerAttackRelease(frequency, "16n"); }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>catch (e) { console.error("Tone.js error:", e); }</p>
 <p class="p1"><span class="Apple-converted-space">                        </span>}</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">                        </span>if (!data.particlesGenerated) {</p>
@@ -593,25 +593,64 @@
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>// --- Event Listeners ---</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// *** Function to handle adding position to history ***</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function recordPointerPosition(clientX, clientY) {</p>
+<p class="p1"><span class="Apple-converted-space">             </span>// Clamp recorded coordinates to viewport</p>
+<p class="p1"><span class="Apple-converted-space">             </span>mouseX = Math.max(0, Math.min(clientX, window.innerWidth));</p>
+<p class="p1"><span class="Apple-converted-space">             </span>mouseY = Math.max(0, Math.min(clientY, window.innerHeight));</p>
+<p class="p1"><span class="Apple-converted-space">             </span>mouseHistory.push({ x: mouseX, y: mouseY, time: performance.now() });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// *** Function to ensure audio context is started ***</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function startAudio() {</p>
+<p class="p1"><span class="Apple-converted-space">             </span>if (!audioStarted) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Tone.start().then(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>audioStarted = true;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>console.log('Audio context started by user interaction.');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}).catch(e =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                     </span>console.error("Failed to start audio context:", e);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Mouse Move on Canvas</p>
 <p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('mousemove', (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// *** Clamp recorded mouse coordinates to viewport ***</p>
-<p class="p1"><span class="Apple-converted-space">            </span>mouseX = Math.max(0, Math.min(event.clientX, window.innerWidth));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>mouseY = Math.max(0, Math.min(event.clientY, window.innerHeight));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>mouseHistory.push({ x: mouseX, y: mouseY, time: performance.now() });</p>
+<p class="p1"><span class="Apple-converted-space">            </span>recordPointerPosition(event.clientX, event.clientY);</p>
 <p class="p1"><span class="Apple-converted-space">        </span>});</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>// REMOVED: clearButton listener</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Touch Move on Canvas</p>
+<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('touchmove', (event) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Prevent default scroll/zoom behavior</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.touches.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recordPointerPosition(event.touches[0].clientX, event.touches[0].clientY);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}, { passive: false }); // Need passive: false to allow preventDefault</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">         </span>// Theme Toggle Listener - Updated to clear circles</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Touch Start on Canvas (primarily to start audio)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('touchstart', (event) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">             </span>// Prevent default only if not interacting with button</p>
+<p class="p1"><span class="Apple-converted-space">             </span>if (event.target !== themeToggle) {</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>event.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">             </span>}</p>
+<p class="p1"><span class="Apple-converted-space">             </span>startAudio(); // Ensure audio starts on first touch</p>
+<p class="p1"><span class="Apple-converted-space">             </span>// Optionally record initial touch point</p>
+<p class="p1"><span class="Apple-converted-space">             </span>if (event.touches.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// recordPointerPosition(event.touches[0].clientX, event.touches[0].clientY);</p>
+<p class="p1"><span class="Apple-converted-space">             </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}, { passive: false });</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">         </span>// Theme Toggle Listener - Updated to clear circles AND start audio</p>
 <p class="p1"><span class="Apple-converted-space">         </span>themeToggle.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">             </span>startAudio(); // Ensure audio starts if button is first interaction</p>
 <p class="p1"><span class="Apple-converted-space">             </span>clearAllCircles(); // Clear existing circles first</p>
 <p class="p1"><span class="Apple-converted-space">             </span>document.body.classList.toggle('nighttime');</p>
 <p class="p1"><span class="Apple-converted-space">             </span>if (document.body.classList.contains('nighttime')) {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>// *** Updated button text ***</p>
 <p class="p1"><span class="Apple-converted-space">                 </span>themeToggle.textContent = '☀️';</p>
 <p class="p1"><span class="Apple-converted-space">                 </span>currentTheme = 'nighttime';</p>
 <p class="p1"><span class="Apple-converted-space">             </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>// *** Updated button text ***</p>
 <p class="p1"><span class="Apple-converted-space">                 </span>themeToggle.textContent = '🌙';</p>
 <p class="p1"><span class="Apple-converted-space">                 </span>currentTheme = 'daytime';</p>
 <p class="p1"><span class="Apple-converted-space">             </span>}</p>
